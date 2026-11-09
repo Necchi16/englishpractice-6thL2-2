@@ -861,6 +861,15 @@
       }
       else if (step === 'IMAGE_INPUT') {
         const canProceed = viewingWork && viewingWork.img && viewingWork.img.trim() !== "";
+        let searchKeyword = 'Japan';
+        if (viewingWork && viewingWork.inputs) {
+            const actionInput = viewingWork.inputs.find(i => i.type === 'action');
+            if (actionInput && actionInput.action) {
+                searchKeyword = actionInput.action;
+            } else if (viewingWork.inputs[0] && viewingWork.inputs[0].action) {
+                searchKeyword = viewingWork.inputs[0].action;
+            }
+        }
         content = (
           <div className="min-h-screen p-4 flex flex-col items-center py-12 relative bg-indigo-50">
             <BackButton />
@@ -879,8 +888,8 @@
               <h2 className="text-2xl font-bold text-indigo-700 mb-6 text-center">スライドの がぞうを さがそう🖼️</h2>
               
               <div className="bg-gray-50 p-4 rounded-xl border-2 border-gray-200 shadow-sm">
-                <a href={`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(viewingWork.inputs ? viewingWork.inputs[0].action : 'Japan')}`} target="_blank" rel="noopener noreferrer" className="inline-block mb-4 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 font-bold py-3 px-6 rounded-xl shadow-sm border border-indigo-300 transition-colors w-full text-center text-lg">
-                  🔍 「{viewingWork.inputs ? viewingWork.inputs[0].action : 'Japan'}」で 画像けんさく
+                <a href={`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(searchKeyword)}`} target="_blank" rel="noopener noreferrer" className="inline-block mb-4 bg-indigo-100 hover:bg-indigo-200 text-indigo-800 font-bold py-3 px-6 rounded-xl shadow-sm border border-indigo-300 transition-colors w-full text-center text-lg">
+                  🔍 「{searchKeyword}」で 画像けんさく
                 </a>
 
                 <label className="block text-sm font-bold text-gray-600 mb-2">画像アドレスをはりつけ</label>
